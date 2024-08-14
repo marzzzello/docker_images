@@ -48,8 +48,8 @@ jobs:
         PLATFORMS:
           - linux/amd64,linux/arm64,linux/arm/v7
         TAG:
+          - 24.04
           - 22.04
-          - 20.04
     steps:
       - uses: actions/setup-go@v5
         with:
@@ -154,7 +154,7 @@ jobs:
           }
 
           echo $tags
-          
+
           ./build.ps1 `
               -push `
               -tags $tags
@@ -198,7 +198,7 @@ jobs:
           }
 
           echo $tags
-          
+
           ./build.ps1 `
               -push `
               -tags $tags
@@ -223,7 +223,7 @@ jobs:
 
   build-flavours:
     name: Build ${{ matrix.TYPE }}:${{ matrix.TAG }}
-    if: (!cancelled() && !failure())
+    if: (!cancelled() && !failure() && false) # disable flavours for now
     runs-on: ubuntu-latest
     needs: [build-base]
     env:
@@ -235,8 +235,8 @@ jobs:
       max-parallel: 8
       matrix:
         TAG:
+          - 24.04
           - 22.04
-          - 20.04
         TYPE:
           - go
           - js
@@ -371,7 +371,7 @@ jobs:
           }
 
           echo $tags
-          
+
           ./build.ps1 `
               -push `
               -tags $tags
